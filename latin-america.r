@@ -1,7 +1,7 @@
 require(ggplot2)
 
 # Load data
-b <- read.csv("clients-2017-10.csv", stringsAsFactors = FALSE)
+b <- read.csv("clients.csv", stringsAsFactors = FALSE)
 summary(b)
 
 # Filter by latin american countries
@@ -10,8 +10,10 @@ summary(b)
 
 # Plot per country
 ggplot(b, aes(x = as.Date(date, "%Y-%m-%d"), y = clients, colour = country)) +
- geom_point() +
+# geom_point() +
  geom_line() +
+ ggtitle("Latin American Tor clients by Country") +
+ scale_x_date(name = "Date") +
 # scale_y_log10() +
  facet_grid(node~.,scales = "free_y")
 
@@ -23,6 +25,8 @@ summary(d)
 # Plot aggregated data from all countries
 ggplot(d, aes(x = as.Date(date, "%Y-%m-%d"), y = clients, colour = node)) +
  geom_line() +
+ ggtitle("Latin American Tor clients") +
+ scale_x_date(name = "Date") +
 # facet_grid(node~.,scales = "free_y") +
  expand_limits(y = 0)
 
